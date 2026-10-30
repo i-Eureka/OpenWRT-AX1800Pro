@@ -52,3 +52,9 @@ if [[ "${WRT_TARGET^^}" == *"QUALCOMMAX"* ]]; then
 		echo "qualcommax set up nowifi successfully!"
 	fi
 fi
+
+#将京东云 RE-SS-01 的内核大小调整为12M
+IMAGE_FILE="./target/linux/qualcommax/image/ipq60xx.mk"
+if [ -f "$IMAGE_FILE" ]; then
+	sed -i '/^define Device\/jdcloud_re-ss-01/,/^endef/ s/^[[:space:]]*KERNEL_SIZE[[:space:]]*:=.*/KERNEL_SIZE := 12288k/' "$IMAGE_FILE"
+fi
